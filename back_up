@@ -52,17 +52,16 @@ int main()
             {
             ROTATE_LEFT ();
             }
-       }while(SWITCH_A != 0 && SWITCH_B != 0);       
+       }
+while(SWITCH_A != 0 && SWITCH_B != 0);       
    }
            
    return (EXIT_SUCCESS);
 }
-void WAIT_HALF_SEC()
-{
+void WAIT_HALF_SEC() {
      __delay_ms(500);
 }
-void ROTATE_RIGHT()
-{
+void ROTATE_RIGHT() {
     PORTA = 0xFC;
     WAIT_HALF_SEC();
     PORTA = 0xF9;
@@ -76,8 +75,7 @@ void ROTATE_RIGHT()
     PORTA = 0xDE;
     WAIT_HALF_SEC();
 }
-void ROTATE_LEFT()
-{
+void ROTATE_LEFT() {
     PORTA = 0xDE;
     WAIT_HALF_SEC();
     PORTA = 0xCF;
@@ -91,10 +89,10 @@ void ROTATE_LEFT()
     PORTA = 0xFC;
     WAIT_HALF_SEC();
 }
-void PULSE_ON_OFF_LED_G()
-{
+void PULSE_ON_OFF_LED_G() {
     PORTA = 0xBF;
     WAIT_HALF_SEC();
     PORTA = 0xFF;
     WAIT_HALF_SEC();
 }
+
