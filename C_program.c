@@ -25,17 +25,17 @@ int main() {
     
     while (1)
     {
-        if(PORTB = 0x00){
+        if(PORTB == 0x00){
             PORTA = 0x00;
         }
-        else if (PORTB = 0x01){
-            while(PORTB = 0x01){
+        else if (PORTB == 0x01){
+            while(PORTB == 0x01){
                 PORTA = 0x81;
                 __delay_ms(500);
                 PORTA = 0x00;
         }
         }   
-        else if (PORTB = 0x02) {
+        else if (PORTB == 0x02) {
             // If PORTB is 0x03, cycle through the pattern on PORTA
             int pattern_index = 0;
             while (PORTB == 0x02) {  // Continue cycling as long as PORTB is 0x03
@@ -66,7 +66,7 @@ int main() {
                 __delay_ms(500);  // Delay between each pattern change
             }
         }
-        else if (PORTB = 0x03) {
+        else if (PORTB == 0x03) {
             // If PORTB is 0x03, cycle through the pattern on PORTA
             int pattern_index = 0;
             while (PORTB == 0x03) {  // Continue cycling as long as PORTB is 0x03
