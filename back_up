@@ -1,0 +1,100 @@
+/* 
+ * File:   First_main_C.c
+ * Author: Daniel Thomason
+ * Created on July 1, 2024, 8:15 PM
+ 
+ *****NOTE****
+ * Here is the set up for the seven seg display, COMMON ANODE.
+ * PORTA BIT#           76543210              
+ * SEVEN SEG ORDER      1GFEDCBA 
+ * NUM VALUE,  DECIMAL,  BINARY,   HEX         
+ *               #1 =   11111111 = 0xF9       
+ *               #2 =   10100100 = 0xA4       
+ *               #3 =   10110000 = 0xB0       
+ *               #4 =   10011001 = 0x99        
+ *               #0 =   11000000 = 0xC0         
+ *               ******** ETC *********  
+ */  
+#include <stdio.h>
+#include <stdlib.h>
+#include "First_C_config.h"
+
+#define  _XTAL_FREQ 1000000
+#define  SWITCH_A   PORTDbits.RD0
+#define  SWITCH_B   PORTDbits.RD1
+
+void WAIT_HALF_SEC     ();
+void ROTATE_RIGHT      ();
+void ROTATE_LEFT       ();
+void PULSE_ON_OFF_LED_G();
+
+int main() 
+{
+   ADCON1 = 0xff;  // Turn off ADC
+   TRISA  = 0x00;  // set PORTA as output
+   TRISD  = 0x03;  // set PORTD as input
+   
+   
+  while(1)         // MAIN_LOOP
+   {
+       PORTA = 0xFF;
+       do
+       {
+            while(SWITCH_A==1 && SWITCH_B==0)
+            {
+            PULSE_ON_OFF_LED_G();
+            }
+            while(SWITCH_A==0 && SWITCH_B==1)
+            {
+            ROTATE_RIGHT();
+            }
+            while(SWITCH_A==1 && SWITCH_B==1)  
+            {
+            ROTATE_LEFT ();
+            }
+       }while(SWITCH_A != 0 && SWITCH_B != 0);       
+   }
+           
+   return (EXIT_SUCCESS);
+}
+void WAIT_HALF_SEC()
+{
+     __delay_ms(500);
+}
+void ROTATE_RIGHT()
+{
+    PORTA = 0xFC;
+    WAIT_HALF_SEC();
+    PORTA = 0xF9;
+    WAIT_HALF_SEC();
+    PORTA = 0xF3;
+    WAIT_HALF_SEC();
+    PORTA = 0xE7;       
+    WAIT_HALF_SEC();
+    PORTA = 0xCF;
+    WAIT_HALF_SEC();
+    PORTA = 0xDE;
+    WAIT_HALF_SEC();
+}
+void ROTATE_LEFT()
+{
+    PORTA = 0xDE;
+    WAIT_HALF_SEC();
+    PORTA = 0xCF;
+    WAIT_HALF_SEC();
+    PORTA = 0xE7;
+    WAIT_HALF_SEC();
+    PORTA = 0xF3;       
+    WAIT_HALF_SEC();
+    PORTA = 0xF9;
+    WAIT_HALF_SEC();
+    PORTA = 0xFC;
+    WAIT_HALF_SEC();
+}
+void PULSE_ON_OFF_LED_G()
+{
+    PORTA = 0xBF;
+    WAIT_HALF_SEC();
+    PORTA = 0xFF;
+    WAIT_HALF_SEC();
+}
